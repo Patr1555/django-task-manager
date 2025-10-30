@@ -16,12 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.shortcuts import redirect
 
 
 urlpatterns = [
+    path('', lambda request: redirect('blog_home')),
+
     path('admin/', admin.site.urls),
-    path('', include('task.urls')),
-]
+    
+    #path('', include('task.urls')),
+    path('blog/',include('blog.urls')),#include('blog.urls') → tells Django to look inside your blog app for its own URL patterns.
+]## your new Blog app routes^
 
 
-#here you connect the urls from the app urls.py to this project urls.py^^.
+#here you connect the urls from the app urls.py, to this main project urls.py^^.

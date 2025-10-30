@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+    {% if messages %}
+  <ul>
+    {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+        {{ message }}
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}
+    <h1>Hello, {{request.user.username}}^^</h1>
+    <p><a href="{%url 'logout'%}">Logout</a></p>
+    <h2>Your Blog Posts</h2>
+
+    <ul>
+        {% for post in posts %}
+        <li><strong>{{post.title}}</strong>- {{post.created_at|date:"M d, Y"}}</li>
+        <p>{{ post.content|truncatechars:100 }}</p>
+                <a href="{% url 'blog_update' post.id %}">Edit</a> |
+                <a href="{% url 'blog_delete' post.id %}">Delete</a>
+                {% empty %}
+                <li>No posts yet! Write your first below.</li>
+                {% endfor %}</ul>
+                <hr>
+                <h3>Write a New Blog Post</h3>
+                <form method="POST">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <button type="submit">Publish</button>
+                </form>
+</body>
+</html>

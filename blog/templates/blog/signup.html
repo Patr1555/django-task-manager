@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+</head>
+<body>
+    <h2>Create a New Account </h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <!-- The form variable passed from views.py contains all fields from UserCreationForm.
+             When we use {{ form.as_p }}, Django automatically renders each field (username,
+             password1, password2) wrapped in <p> tags for quick display.
+        -->
+                <button type="submit">Sign Up</button>
+    </form>
+    <p>Already have an Account?<a href="{% url 'login' %}">Login here</a>.</p>
+</body>
+</html>
